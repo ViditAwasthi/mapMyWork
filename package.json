@@ -1,24 +1,17 @@
 {
-  "name": "todolist-v1",
+  "name": "to-dov1",
   "version": "1.0.0",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Vidit",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ViditAwasthi/mapMyWork.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ViditAwasthi/mapMyWork/issues"
-  },
-  "homepage": "https://github.com/ViditAwasthi/mapMyWork#readme",
-  "description": ""
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
 }
