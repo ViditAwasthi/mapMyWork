@@ -22,35 +22,42 @@ const itemsSchema ={
 const Item = mongoose.model("Item", itemsSchema);
 
 const item1 = new Item({
-  name: "Welcome to Your Mapper!"
+  name: "Welcome to Your Mapper! Hit + to add"
 });
 
-const item2 = new Item({
-  name: "Hit the + button to add a new Item."
-});
 
-const item3 = new Item({
-  name: "Hit this delete an item."
-});
 
-const defaultItems = [item1, item2, item3];
+const defaultItems = [item1];
 
-Item.insertMany(defaultItems, function(err){
-  if(err){
-    console.log(err);
-  }
-  else{
-    console.log("Successfully saved deafult items to Database");
-  }
-});
+
 
 
 app.get("/", function(req, res) {
 
+Item.find({}, function(err, foundItems){
+
+if(foundItems.length === 0){
+  Item.insertMany(defaultItems, function(err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Successfully saved deafult items to Database");
+    }
+  });
+  res.redirect("/");
+}
+else{
   res.render("list", {
     listTitle: "Today",
-    newListItems: items
+    newListItems: foundItems
   });
+}
+
+
+});
+
+
 });
 
 
