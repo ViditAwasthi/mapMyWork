@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 
 
@@ -62,7 +63,7 @@ else{
 });
 
 app.get("/:customListName", function(req, res){
-  const customListName = req.params.customListName;
+  const customListName = _.capitalize(req.params.customListName);
 
 List.findOne({name: customListName}, function(err, foundList){
   if(!err){
@@ -112,11 +113,26 @@ else{
 
 app.post("/delete", function(req, res){
   const checkedItemId = req.body.checkbox;
-  Item.findByIdAndRemove(checkedItemId, function(err){
+  const listName = req.body.listName;
+// if delete request is coming from the root route
+  if(listName === "Today"){
+    Item.findByIdAndRemove(checkedItemId, function(err){
+      if(!err){
+        res.redirect("/");
+      }
+    });
+  }
+  //if the delete request is coming from a custom route
+  else{
+    List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, function(err, foundList){
     if(!err){
-      res.redirect("/");
+      res.redirect("/"+ listName);
     }
   });
+
+  }
+
+
 });
 app.get("/work", function(req, res) {
   res.render("list", {listTitle: "Work List",newListItems: workItems});
