@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-vidit:Test123@cluster0.qopea.mongodb.net/mapMyWorkDB", {
+mongoose.connect("##MONGODB ATLAS LINK##", {
   useNewUrlParser: true
 });
 
